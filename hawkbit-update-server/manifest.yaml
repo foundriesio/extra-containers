@@ -1,0 +1,19 @@
+image: linarotechnologies/hawkbit-update-server:latest
+manifests:
+  -
+    image: linarotechnologies/hawkbit-update-server:latest-arm64
+    platform:
+      architecture: arm64
+      os: linux
+  -
+    image: linarotechnologies/hawkbit-update-server:latest-armhf
+    platform:
+      architecture: arm
+      os: linux
+  -
+    image: linarotechnologies/hawkbit-update-server:latest-amd64
+    platform:
+      architecture: amd64
+      features:
+        - sse
+      os: linux

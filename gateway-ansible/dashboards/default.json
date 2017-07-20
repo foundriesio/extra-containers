@@ -1,0 +1,364 @@
+{
+	"version": 1,
+	"allow_edit": true,
+	"plugins": [],
+	"panes": [
+		{
+			"width": 1,
+			"row": {
+				"3": 1
+			},
+			"col": {
+				"3": 1
+			},
+			"col_width": 1,
+			"widgets": [
+				{
+					"type": "sparkline",
+					"settings": {
+						"title": "Nitrogen-1",
+						"value": [
+							"datasources[\"96b_nitrogen-0000001\"][\"msg\"][\"d\"][\"mcutemp\"]"
+						],
+						"include_legend": true,
+						"legend": "nitrogen-0000001"
+					}
+				}
+			]
+		},
+		{
+			"width": 1,
+			"row": {
+				"3": 1
+			},
+			"col": {
+				"3": 2
+			},
+			"col_width": 1,
+			"widgets": [
+				{
+					"type": "sparkline",
+					"settings": {
+						"title": "Nitrogen-2",
+						"value": [
+							"datasources[\"96b_nitrogen-0000002\"][\"msg\"][\"d\"][\"mcutemp\"]"
+						],
+						"include_legend": true,
+						"legend": "nitrogen-0000002"
+					}
+				}
+			]
+		},
+		{
+			"width": 1,
+			"row": {
+				"3": 1
+			},
+			"col": {
+				"3": 3
+			},
+			"col_width": 1,
+			"widgets": [
+				{
+					"type": "sparkline",
+					"settings": {
+						"title": "Nitrogen-3",
+						"value": [
+							"datasources[\"96b_nitrogen-0000003\"][\"msg\"][\"d\"][\"mcutemp\"]"
+						],
+						"include_legend": true,
+						"legend": "nitrogen-0000003"
+					}
+				}
+			]
+		},
+		{
+			"width": 1,
+			"row": {
+				"3": 15
+			},
+			"col": {
+				"3": 1
+			},
+			"col_width": 1,
+			"widgets": [
+				{
+					"type": "gauge",
+					"settings": {
+						"title": "Nitrogen-1",
+						"value": "datasources[\"96b_nitrogen-0000001\"][\"msg\"][\"d\"][\"mcutemp\"]",
+						"units": "Degrees (C)",
+						"min_value": 0,
+						"max_value": "50"
+					}
+				}
+			]
+		},
+		{
+			"width": 1,
+			"row": {
+				"3": 15
+			},
+			"col": {
+				"3": 2
+			},
+			"col_width": 1,
+			"widgets": [
+				{
+					"type": "gauge",
+					"settings": {
+						"title": "Nitrogen-2",
+						"value": "datasources[\"96b_nitrogen-0000002\"][\"msg\"][\"d\"][\"mcutemp\"]",
+						"units": "Degrees (C)",
+						"min_value": 0,
+						"max_value": "50"
+					}
+				}
+			]
+		},
+		{
+			"width": 1,
+			"row": {
+				"3": 15
+			},
+			"col": {
+				"3": 3
+			},
+			"col_width": 1,
+			"widgets": [
+				{
+					"type": "gauge",
+					"settings": {
+						"title": "Nitrogen-3",
+						"value": "datasources[\"96b_nitrogen-0000003\"][\"msg\"][\"d\"][\"mcutemp\"]",
+						"units": "Degrees (C)",
+						"min_value": 0,
+						"max_value": "50"
+					}
+				}
+			]
+		},
+		{
+			"width": 1,
+			"row": {
+				"3": 8
+			},
+			"col": {
+				"3": 1
+			},
+			"col_width": 1,
+			"widgets": [
+				{
+					"type": "sparkline",
+					"settings": {
+						"title": "Nitrogen-4",
+						"value": [
+							"datasources[\"96b_nitrogen-0000004\"][\"msg\"][\"d\"][\"mcutemp\"]"
+						],
+						"include_legend": true,
+						"legend": "nitrogen-0000004"
+					}
+				}
+			]
+		},
+		{
+			"width": 1,
+			"row": {
+				"3": 8
+			},
+			"col": {
+				"3": 2
+			},
+			"col_width": 1,
+			"widgets": [
+				{
+					"type": "sparkline",
+					"settings": {
+						"title": "Nitrogen-5",
+						"value": [
+							"datasources[\"96b_nitrogen-0000005\"][\"msg\"][\"d\"][\"mcutemp\"]"
+						],
+						"include_legend": true,
+						"legend": "nitrogen-0000005"
+					}
+				}
+			]
+		},
+		{
+			"width": 1,
+			"row": {
+				"3": 8
+			},
+			"col": {
+				"3": 3
+			},
+			"col_width": 1,
+			"widgets": [
+				{
+					"type": "sparkline",
+					"settings": {
+						"title": "Nitrogen-6",
+						"value": [
+							"datasources[\"96b_nitrogen-0000006\"][\"msg\"][\"d\"][\"mcutemp\"]"
+						],
+						"include_legend": true,
+						"legend": "nitrogen-0000006"
+					}
+				}
+			]
+		},
+		{
+			"width": 1,
+			"row": {
+				"3": 23
+			},
+			"col": {
+				"3": 1
+			},
+			"col_width": 1,
+			"widgets": [
+				{
+					"type": "gauge",
+					"settings": {
+						"title": "Nitrogen-4",
+						"value": "datasources[\"96b_nitrogen-0000004\"][\"msg\"][\"d\"][\"mcutemp\"]",
+						"units": "Degrees (C)",
+						"min_value": 0,
+						"max_value": "50"
+					}
+				}
+			]
+		},
+		{
+			"width": 1,
+			"row": {
+				"3": 23
+			},
+			"col": {
+				"3": 2
+			},
+			"col_width": 1,
+			"widgets": [
+				{
+					"type": "gauge",
+					"settings": {
+						"title": "Nitrogen-5",
+						"value": "datasources[\"96b_nitrogen-0000005\"][\"msg\"][\"d\"][\"mcutemp\"]",
+						"units": "Degrees (C)",
+						"min_value": 0,
+						"max_value": "50"
+					}
+				}
+			]
+		},
+		{
+			"width": 1,
+			"row": {
+				"3": 23
+			},
+			"col": {
+				"3": 3
+			},
+			"col_width": 1,
+			"widgets": [
+				{
+					"type": "gauge",
+					"settings": {
+						"title": "Nitrogen-6",
+						"value": "datasources[\"96b_nitrogen-0000006\"][\"msg\"][\"d\"][\"mcutemp\"]",
+						"units": "Degrees (C)",
+						"min_value": 0,
+						"max_value": "50"
+					}
+				}
+			]
+		}
+	],
+	"datasources": [
+		{
+			"name": "96b_nitrogen-0000001",
+			"type": "paho_mqtt",
+			"settings": {
+				"server": "{{ brokerhost|default('') }}",
+				"port": 9001,
+				"use_ssl": false,
+				"client_id": "96b_nitrogen-0000001-01",
+				"username": "{{ brokeruser|default('') }}",
+				"password": "{{ brokerpw|default('') }}",
+				"topic": "iot-2/type/96b_nitrogen/id/96b_nitrogen-0000001/#",
+				"json_data": true
+			}
+		},
+		{
+			"name": "96b_nitrogen-0000002",
+			"type": "paho_mqtt",
+			"settings": {
+				"server": "{{ brokerhost|default('') }}",
+				"port": 9001,
+				"use_ssl": false,
+				"client_id": "96b_nitrogen-0000002-01",
+				"username": "{{ brokeruser|default('') }}",
+				"password": "{{ brokerpw|default('') }}",
+				"topic": "iot-2/type/96b_nitrogen/id/96b_nitrogen-0000002/#",
+				"json_data": true
+			}
+		},
+		{
+			"name": "96b_nitrogen-0000003",
+			"type": "paho_mqtt",
+			"settings": {
+				"server": "{{ brokerhost|default('') }}",
+				"port": 9001,
+				"use_ssl": false,
+				"client_id": "96b_nitrogen-0000003-01",
+				"username": "{{ brokeruser|default('') }}",
+				"password": "{{ brokerpw|default('') }}",
+				"topic": "iot-2/type/96b_nitrogen/id/96b_nitrogen-0000003/#",
+				"json_data": true
+			}
+		},
+		{
+			"name": "96b_nitrogen-0000004",
+			"type": "paho_mqtt",
+			"settings": {
+				"server": "{{ brokerhost|default('') }}",
+				"port": 9001,
+				"use_ssl": false,
+				"client_id": "96b_nitrogen-0000004-01",
+				"username": "{{ brokeruser|default('') }}",
+				"password": "{{ brokerpw|default('') }}",
+				"topic": "iot-2/type/96b_nitrogen/id/96b_nitrogen-0000004/#",
+				"json_data": true
+			}
+		},
+		{
+			"name": "96b_nitrogen-0000005",
+			"type": "paho_mqtt",
+			"settings": {
+				"server": "{{ brokerhost|default('') }}",
+				"port": 9001,
+				"use_ssl": false,
+				"client_id": "96b_nitrogen-0000005-01",
+				"username": "{{ brokeruser|default('') }}",
+				"password": "{{ brokerpw|default('') }}",
+				"topic": "iot-2/type/96b_nitrogen/id/96b_nitrogen-0000005/#",
+				"json_data": true
+			}
+		},
+		{
+			"name": "96b_nitrogen-0000006",
+			"type": "paho_mqtt",
+			"settings": {
+				"server": "{{ brokerhost|default('') }}",
+				"port": 9001,
+				"use_ssl": false,
+				"client_id": "96b_nitrogen-0000006-01",
+				"username": "{{ brokeruser|default('') }}",
+				"password": "{{ brokerpw|default('') }}",
+				"topic": "iot-2/type/96b_nitrogen/id/96b_nitrogen-0000006/#",
+				"json_data": true
+			}
+		}
+	],
+	"columns": 3
+}

@@ -1,0 +1,226 @@
+# An ansible playbook to start the appropriate containers on a iot-gateway
+#
+# note: docker commands are used and not the ansible docker utilities to remove
+# additional dependencies on the target system
+
+# Host dependencies:
+#  - install ansible,
+#  - create and copy ssh key
+#  - run playbook with appropriate parameters
+#    i.e. ansible-playbook -e "mqttuser= mqttpass= mqtthost= mqttport= gitci= tag=" -i targethost, iot-gateway.yml
+#    where tag is the default docker tag (e.g. latest-arm64, latest-armhf or "" for x86-64)
+
+# There are Ansible tags below for the following gateway personalities
+#
+# gateway - start default containers for the gateway
+#  + minimal mosquitto broker (local mqtt port on 1883, websocket port on 9001)
+#  + tinyproxy (expects gitci.com IP as hawkbit will run on a different system)
+#  + bt-joiner
+#  + freeboard
+# cloud - start containers configured to bridge mqtt data to the cloud
+#  + mosquitto configured for use with cloud service (i.e. Bluemix or Cloudmqtt)
+#  + tinyproxy (expects gitci.com IP as hawkbit will run on a different system)
+#  + bt-joiner
+# local - configured to run all services directly on the gateway
+#  + minimal mosquitto broker (local mqtt port on 1883, websocket port on 9001)
+#  + hawkbit (running on gateway device)
+#  + bt-joiner
+#  + freeboard
+# There are also ansible tags for the individual items;
+#   mosquitto-local, mosquitto-cloud, tinyproxy, bt-joiner, freeboard, etc...
+
+# This task removes all containers
+- hosts: all
+  tasks:
+  - name: Cleanup for containers for group roll-out
+    command: sh -c "if [ $(docker ps -a -q | head -c1 | wc -c) -ne 0 ]; then "\
+                       "docker stop $(docker ps -aq); "\
+                       "docker rm $(docker ps -aq); "\
+                   "fi"
+  tags:
+    - cleanall
+    - gateway
+    - demo
+    - cloud
+    - local
+
+# Mosquitto broker, cloudmqtt or IBM bluemix
+- hosts: all
+  tasks:
+  - name: Copy mosquitto config file
+    copy:
+      src: mosquitto.conf
+      dest: /home/linaro/mosquitto.conf
+  - name: add password
+    lineinfile: dest=/home/linaro/mosquitto.conf
+                regexp='^remote_password \#'
+                insertbefore=BOF
+                line='remote_password {{ mqttpass }}'
+  - name: add username
+    lineinfile: dest=/home/linaro/mosquitto.conf
+                regexp='^remote_username \#'
+                insertbefore=BOF
+                line='remote_username {{ mqttuser }}'
+  - name: add address and port
+    lineinfile: dest=/home/linaro/mosquitto.conf
+                regexp='^address \#'
+                insertbefore=BOF
+                line='address {{ mqtthost }}:{{ mqttport }}'
+  - name: add mqtt upstream connection name
+    lineinfile: dest=/home/linaro/mosquitto.conf
+                regexp='^connection \#'
+                insertbefore=BOF
+                line='connection mqtt-generic'
+  - name: Start mosquitto container
+    command: sh -c "docker stop mosquitto; docker rm mosquitto; "\
+                   "docker pull {{ hub|default('linarotechnologies') }}/mosquitto:{{ tag|default('latest') }}; "\
+                   "docker run --restart=always -d -t --net=host --read-only "\
+                           "-v /home/linaro/mosquitto.conf:/etc/mosquitto/conf.d/mosquitto.conf "\
+                           "--name mosquitto {{ hub|default('linarotechnologies') }}/mosquitto:{{ tag|default('latest') }}"
+  tags:
+    - cloud
+    - mosquitto-cloud
+
+# Mosquitto 'minimal' broker
+- hosts: all
+  tasks:
+  - name: Copy mosquitto config file
+    copy:
+      src: mosquitto-minimal.conf
+      dest: /home/linaro/mosquitto.conf
+  - name: Start mosquitto container
+    command: sh -c "docker stop mosquitto; docker rm mosquitto; "\
+                   "docker pull {{ hub|default('linarotechnologies') }}/mosquitto:{{ tag|default('latest') }}; "\
+                   "docker run --restart=always -d -t --net=host --read-only "\
+                           "-v /home/linaro/mosquitto.conf:/etc/mosquitto/conf.d/mosquitto.conf "\
+                           "--name mosquitto {{ hub|default('linarotechnologies') }}/mosquitto:{{ tag|default('latest') }}"
+  tags:
+    - mosquitto-local
+    - gateway
+    - demo
+    - local
+
+
+# Tinyproxy
+- hosts: all
+  tasks:
+  - name: Run tiny-proxy container
+    command: sh -c "docker stop tinyproxy; docker rm tinyproxy; "\
+                   "docker pull {{ hub|default('linarotechnologies') }}/tinyproxy:{{ tag|default('latest') }}; "\
+                   "docker run --restart=always -d -t --net=host "\
+                           "--read-only --tmpfs=/var/run --tmpfs=/var/log --tmpfs=/tmp "\
+                           "--add-host=gitci.com:{{ gitci }} "\
+                           "--name tinyproxy {{ hub|default('linarotechnologies') }}/tinyproxy:{{ tag|default('latest') }}"
+  tags:
+    - tinyproxy
+    - gateway
+    - demo
+    - cloud
+
+# Bt-Joiner
+- hosts: all
+  tasks:
+  - name: Copy bluetooth_6lowpand config file
+    copy:
+      src: bluetooth_6lowpand.conf
+      dest: /home/linaro/bluetooth_6lowpand.conf
+  - name: Run bt-joiner container
+    command: sh -c "docker stop bt-joiner; docker rm bt-joiner; "\
+                   "docker pull {{ hub|default('linarotechnologies') }}/bt-joiner:{{ tag|default('latest') }}; "\
+                   "docker run --restart=always -d -t --privileged --net=host "\
+                           "--read-only --tmpfs=/var/run --tmpfs=/var/lock --tmpfs=/var/log "\
+                           "-v /home/linaro/bluetooth_6lowpand.conf:/etc/bluetooth/bluetooth_6lowpand.conf "\
+                           "--name bt-joiner {{ hub|default('linarotechnologies') }}/bt-joiner:{{ tag|default('latest') }}"
+  tags:
+    - bt-joiner
+    - demo
+    - gateway
+    - local
+    - cloud
+
+# hawkbit
+- hosts: all
+  tasks:
+  - name: Run hawkbit container (note takes 2-3 minutes to start on some systems)
+    command: sh -c "docker stop hawkbit; docker rm hawkbit; "\
+                   "docker pull {{ hub|default('linarotechnologies') }}/hawkbit-update-server:{{ tag|default('latest') }}; "\
+                   "docker run --restart=always -d -t --net=host "\
+                           "--add-host=gitci.com:{{ gitci|default('127.0.0.1') }} "\
+                           "--name hawkbit {{ hub|default('linarotechnologies') }}/hawkbit-update-server:{{ tag|default('latest') }}"
+  tags:
+    - hawkbit
+    - local
+
+# Freeboard
+- hosts: all
+  tasks:
+  - name: create dashboard directory
+    file: path=/home/linaro/dashboards state=directory mode=0755
+
+  - name: Copy default freeboard dashboard
+    template:
+      src: dashboards/default.json
+      dest: /home/linaro/dashboards/default.json
+
+  - name: Copy simple freeboard dashboard
+    template:
+      src: dashboards/simple.json
+      dest: /home/linaro/dashboards/simple.json
+
+  - name: Run freeboard container
+    command: sh -c "docker stop freeboard; docker rm freeboard; "\
+                   "docker pull {{ hub|default('linarotechnologies') }}/freeboard-demo:{{ tag|default('latest') }}; "\
+                   "docker run --restart=always -d -t -p 80:80 "\
+                           "-v /home/linaro/dashboards/default.json:/usr/share/nginx/html/default.json "\
+                           "-v /home/linaro/dashboards/default.json:/usr/share/nginx/html/dashboard.json "\
+                           "-v /home/linaro/dashboards:/usr/share/nginx/html/dashboards "\
+                           "--name freeboard {{ hub|default('linarotechnologies') }}/freeboard-demo:{{ tag|default('latest') }}"
+  tags:
+    - freeboard
+    - demo
+    - local
+
+# NGINX CoAP Proxy
+- hosts: all
+  tasks:
+  - name: Copy nginx config file
+    copy:
+      src: nginx-lwm2m.conf
+      dest: /home/linaro/nginx-lwm2m.conf
+  - name: Run nginx CoAP proxy container
+    command: sh -c "docker stop nginx-coap-proxy; docker rm nginx-coap-proxy; "\
+                   "docker pull {{ hub|default('linarotechnologies') }}/nginx:{{ tag|default('latest') }}; "\
+                   "docker run --restart=always -d -t --net=host "\
+                           "--read-only --tmpfs=/var/run  --add-host=gitci.com:{{ gitci }} "\
+                           "-v /home/linaro/nginx-lwm2m.conf:/etc/nginx/nginx.conf "\
+                           "--name nginx-coap-proxy {{ hub|default('linarotechnologies') }}/nginx:{{ tag|default('latest') }} "\
+                           "nginx-debug -g 'daemon off;'"
+  tags:
+    - nginx-coap-proxy
+    - demo
+    - gateway
+
+# CF CoAP-HTTP Proxy
+- hosts: all
+  tasks:
+  - name: Run CF CoAP-HTTP proxy container
+    command: sh -c "docker stop cf-proxy-coap-http; docker rm cf-proxy-coap-http; "\
+                   "docker pull {{ hub|default('linarotechnologies') }}/cf-proxy-coap-http:{{ tag|default('latest') }}; "\
+                   "docker run --restart=always -d -t --net=host --read-only "\
+                           "--name cf-proxy-coap-http {{ hub|default('linarotechnologies') }}/cf-proxy-coap-http:{{ tag|default('latest') }}"
+  tags:
+    - cf-proxy-coap-http
+    - demo
+    - gateway
+
+# LWM2M Leshan
+- hosts: all
+  tasks:
+  - name: Run LWM2M Leshan container
+    command: sh -c "docker stop leshan; docker rm leshan; "\
+                   "docker pull rsalveti/leshan:{{ tag|default('latest') }}; "\
+                   "docker run --restart=always -d -t --net=host --read-only "\
+                           "-e LESHAN_ARGS='-wp 8081' --tmpfs=/tmp "\
+                           "--name leshan rsalveti/leshan:{{ tag|default('latest') }}"
+  tags:
+    - leshan

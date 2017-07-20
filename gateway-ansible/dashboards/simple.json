@@ -1,0 +1,69 @@
+{
+	"version": 1,
+	"allow_edit": true,
+	"plugins": [],
+	"panes": [
+		{
+			"width": 1,
+			"row": {
+				"3": 1
+			},
+			"col": {
+				"3": 1
+			},
+			"col_width": 1,
+			"widgets": [
+				{
+					"type": "sparkline",
+					"settings": {
+						"title": "96b",
+						"value": [
+							"datasources[\"catchall-demo\"][\"msg\"][\"d\"][\"mcutemp\"]"
+						],
+						"include_legend": true,
+						"legend": "catchall devices"
+					}
+				}
+			]
+		},
+		{
+			"width": 1,
+			"row": {
+				"3": 8
+			},
+			"col": {
+				"3": 1
+			},
+			"col_width": 1,
+			"widgets": [
+				{
+					"type": "gauge",
+					"settings": {
+						"title": "Catch-all",
+						"value": "datasources[\"catchall-demo\"][\"msg\"][\"d\"][\"mcutemp\"]",
+						"units": "Degrees (C)",
+						"min_value": 0,
+						"max_value": "50"
+					}
+				}
+			]
+		}
+	],
+	"datasources": [
+		{
+			"name": "catchall-demo",
+			"type": "paho_mqtt",
+			"settings": {
+				"server": "{{ brokerhost|default('') }}",
+				"port": 9001,
+				"use_ssl": false,
+				"client_id": "catchall-client01",
+				"username": "{{ brokeruser|default('') }}",
+				"password": "{{ brokerpw|default('') }}",
+				"topic": "iot-2/type/#",
+				"json_data": true
+			}
+		}
+	],
+	"columns": 3
+}

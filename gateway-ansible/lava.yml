@@ -1,0 +1,30 @@
+#first make sure to run the containers that make this an IoT gateway
+#- include: iot-gateway.yml
+
+#run lava
+- hosts: all
+  tasks:
+  - name: Copy ser2net.conf file
+    copy:
+      src: ser2net.conf
+      dest: /home/linaro/ser2net.conf
+  - name: Copy config file
+    copy:
+      src: reset-port-pykush.sh
+      dest: /home/linaro/reset-port-pykush.sh
+      mode: 0755
+  - name: Run lava container (takes quite a while the first time to download the image)
+    command: sh -c "docker stop lava-slave; docker rm lava-slave; "\
+                   "docker pull kernelci/lava-slave-docker-v2-lab-tbaker:{{ tag|default('latest') }}; "\
+                   "docker run -dit --restart always --privileged --name=lava-slave "\
+                           "-e LAVA_MASTER={{ lavamaster }} "\
+                           "-p 69:69/udp "\
+                           "--name lava-slave "\
+                           "-h {{ lavaname }} "\
+                           "-v /dev:/dev "\
+                           "-v /home/linaro/ser2net.conf:/etc/ser2net.conf "\
+                           "--tmpfs=/run/ "\
+                           "-v /home/linaro/reset-port-pykush.sh:/root/scripts/reset-port-pykush.sh "\
+                           "kernelci/lava-slave-docker-v2-lab-tbaker:{{ tag|default('latest') }}"
+
+
