@@ -71,3 +71,7 @@ If you modify and use dashboard-private.json, you can browse to the persistent p
  - i.e. http://targethost/?load=dashboard.json
  - i.e. http://targethost/?load=dashboards/default.json - a complex dashboard that requires modification
  - i.e. http://targethost/?load=dashboards/simple.json - a simple 'catch all' dashboard
+
+### Docker
+
+For instructions building and running this container please see [Docker Readme](DOCKER.md)
