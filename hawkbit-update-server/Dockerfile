@@ -1,4 +1,4 @@
-FROM linarotechnologies/openjdk:8u131-jre-alpine
+FROM linarotechnologies/openjdk:latest
 
 MAINTAINER Kai Zimmermann <kai.zimmermann@bosch-si.com>
 
