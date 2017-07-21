@@ -1,5 +1,5 @@
 # derive from our baseimage
-FROM linarotechnologies/rtlsdr-docker
+FROM linarotechnologies/rtl-sdr:latest
  
 WORKDIR /tmp
  
