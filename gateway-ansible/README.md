@@ -8,6 +8,6 @@
 
 Usage:
 ```
-    ssh-copy-id linaro@10.0.1.3
+    ssh-copy-id osf@10.0.1.3
     ./iot-gateway.sh gateway
 ```
