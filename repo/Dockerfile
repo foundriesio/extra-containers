@@ -1,4 +1,4 @@
-FROM linarotechnologies/minideb:stretch
+FROM opensourcefoundries/minideb:stretch
 
 RUN install_packages ca-certificates curl git-core python
 
