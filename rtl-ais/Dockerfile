@@ -1,4 +1,4 @@
-FROM linarotechnologies/minideb:stretch
+FROM opensourcefoundries/minideb:stretch
 
 ENV VER=${VER:-master} \
     REPO=https://github.com/dgiardini/rtl-ais.git \

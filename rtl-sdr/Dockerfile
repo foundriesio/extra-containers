@@ -1,4 +1,4 @@
-FROM linarotechnologies/alpine:edge
+FROM opensourcefoundries/alpine:edge
 EXPOSE 1234
 
 RUN apk add --no-cache alpine-sdk cmake git libusb-dev libusb 
