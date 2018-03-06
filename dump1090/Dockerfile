@@ -1,5 +1,5 @@
 # derive from our baseimage
-FROM linarotechnologies/rtl-sdr:latest
+FROM opensourcefoundries/rtl-sdr:latest
  
 WORKDIR /tmp
  
