@@ -1,11 +1,11 @@
 FROM opensourcefoundries/minideb:stretch
 
-RUN install_packages python-pip
+RUN install_packages build-essential python-pip python-dev libffi-dev libssl-dev
 
 RUN pip install setuptools wheel
 RUN pip install -U azure-iot-edge-runtime-ctl
 
-COPY run.sh /run.sh
+RUN apt-get remove -y --purge --auto-remove build-essential
+COPY run.sh /
 
 CMD ["/run.sh"]
-
