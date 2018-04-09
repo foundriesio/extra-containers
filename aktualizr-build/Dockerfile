@@ -51,7 +51,9 @@ RUN mkdir /build && cd /build \
 		&& cmake -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=/usr -DBUILD_SOTA_TOOLS=ON -DBUILD_SYSTEMD=OFF -DBUILD_DEB=ON .. \
 		&& make -j`getconf _NPROCESSORS_ONLN` \
 		&& make package \
-		&& cp *.deb /root/ \
+		&& ARCH=`dpkg --print-architecture` \
+		&& mv aktualizr.deb /root/aktualizr_$ARCH.deb \
+		&& mv garage_deploy.deb /root/garage_deploy_$ARCH.deb \
 		&& cd /root \
 		&& rm -rf /build
 
