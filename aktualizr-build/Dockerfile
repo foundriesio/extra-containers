@@ -45,15 +45,13 @@ RUN mkdir /build && cd /build \
 		&& git clone https://github.com/advancedtelematic/aktualizr.git \
 		&& cd aktualizr \
 		&& git checkout $AKTUALIZR_SRCREV \
-		&& git submodule update --init --recursive
-
-RUN cd /build/aktualizr \
+		&& git submodule update --init --recursive \
 		&& mkdir build-git \
 		&& cd build-git \
 		&& cmake -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=/usr -DBUILD_SOTA_TOOLS=ON -DBUILD_SYSTEMD=OFF -DBUILD_DEB=ON .. \
 		&& make -j`getconf _NPROCESSORS_ONLN` \
 		&& make package \
-		&& dpkg -i *.deb \
+		&& cp *.deb /root/ \
 		&& cd /root \
 		&& rm -rf /build
 
