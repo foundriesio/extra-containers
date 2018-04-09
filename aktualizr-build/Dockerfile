@@ -1,6 +1,6 @@
 FROM opensourcefoundries/minideb:stretch
 ENV DEBIAN_FRONTEND noninteractive
-ENV AKTUALIZR_SRCREV 930d8eef6eb584686654601c056d7c9c6fca3048
+ENV AKTUALIZR_SRCREV 46c8da6ceff826f697b122699f28dec7de3f9d2a
 WORKDIR /root/
 RUN install_packages \
 		asn1c \
@@ -47,9 +47,7 @@ RUN mkdir /build && cd /build \
 		&& git checkout $AKTUALIZR_SRCREV \
 		&& git submodule update --init --recursive
 
-COPY extra_packaging.patch /build/
 RUN cd /build/aktualizr \
-		&& patch -p1 <../extra_packaging.patch \
 		&& mkdir build-git \
 		&& cd build-git \
 		&& cmake -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=/usr -DBUILD_SOTA_TOOLS=ON -DBUILD_SYSTEMD=OFF -DBUILD_DEB=ON .. \
