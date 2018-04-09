@@ -2,6 +2,8 @@
 
 worker=$(cat /srv/jobserv-worker/settings.conf | grep hostname | cut -d= -f2 | tr -d '[:space:]')
 
+sync
+
 if [ "$worker" = "andy-rpi5" ] ; then
 	exec curl -X PUT http://reckless:5000/1/reboot
 fi
