@@ -16,6 +16,8 @@ OPTIONS:
 	-c	OTA+ credentials zip file (e.g. credentials.zip)
 	-h	Shows this message
 	-m	Name for the machine target in OTA+ (e.g. raspberrypi3-64)
+	-v	Optional version to add to the image information
+	-u	Optional url to add to the image information
 	-r	OSTree repository (e.g. ostree_repo)
 EOF
 }
@@ -31,12 +33,14 @@ function fail() {
 }
 
 function get_opts() {
-	declare -r optstr="c:m:r:h"
+	declare -r optstr="c:m:r:u:v:h"
 	while getopts ${optstr} opt; do
 		case ${opt} in
 			c) credentials=${OPTARG} ;;
 			m) machine=${OPTARG} ;;
 			r) ostree_repo=${OPTARG} ;;
+			u) url=${OPTARG} ;;
+			v) version=${OPTARG} ;;
 			h) usage; exit 0 ;;
 			*) fail ;;
 		esac
@@ -59,6 +63,8 @@ fi
 
 ostree_branch=$(ostree refs --repo ${ostree_repo})
 ostree_hash=$(cat ${ostree_repo}/refs/heads/${ostree_branch})
+version="${version-${ostree_hash}}"
+url="${url-http://example.com}"
 tufrepo=$(mktemp -u -d)
 otarepo=$(mktemp -u -d)
 
@@ -73,7 +79,7 @@ garage-sign targets pull --repo ${tufrepo} --home-dir ${otarepo}
 
 echo "Adding OSTree target to the local TUF repository"
 garage-sign targets add --repo ${tufrepo} --home-dir ${otarepo} --name ${ostree_branch} \
-	--format OSTREE --version ${ostree_hash} --length 0 --url "https://example.com" \
+	--format OSTREE --version "${version}" --length 0 --url "${url}" \
 	--sha256 ${ostree_hash} --hardwareids ${machine}
 
 echo "Signing local TUF targets"
