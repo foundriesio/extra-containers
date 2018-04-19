@@ -18,7 +18,7 @@ OPTIONS:
 	-m	Name for the machine target in OTA+ (e.g. raspberrypi3-64)
 	-v	Optional version to add to the image information
 	-u	Optional url to add to the image information
-	-r	OSTree repository (e.g. ostree_repo)
+	-r	OSTree repository (e.g. ostree_repo directory or ostree_repo.tar.bz2 archive)
 EOF
 }
 
@@ -57,8 +57,21 @@ get_opts $@
 if [ ! -f "${credentials}" ]; then
 	error "Credentials ${credentials} file not found"
 fi
-if [ ! -d "${ostree_repo}" ]; then
-	error "OSTree repository ${ostree_repo} directory not found"
+
+if [ -d "${ostree_repo}" ]; then
+	if [ ! -f "${ostree_repo}/config" ]; then
+		error "directory is not a valid OSTree repo: ${ostree_repo}"
+	fi
+elif [ -f "${ostree_repo}" ]; then
+	echo "Validating OSTree archive"
+	if tar -tvjf ${ostree_repo} ostree_repo/config >/dev/null 2>&1; then
+		echo "Decompressing OSTree repository"
+		tmpdir=$(mktemp -d)
+		tar -jxf ${ostree_repo} --totals --checkpoint=.1000 -C ${tmpdir}
+		ostree_repo=${tmpdir}/ostree_repo
+	else
+		error "file is not a valid OSTree repo: $ostree_repo"
+	fi
 fi
 
 ostree_branch=$(ostree refs --repo ${ostree_repo})
