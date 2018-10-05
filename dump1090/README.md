@@ -1,5 +1,6 @@
-# dump1090 Docker image 
+[Dump1090](https://github.com/mutability/dump1090) is a simple Mode S decoder for RTLSDR devices
 
-
-docker build -t test-dump1090 .
-docker run -it --privileged -v /dev/bus/usb:/dev/bus/usb -p 80:8080 --name dump1090 test-dump1090
+## How to use this image
+```
+docker run -it --privileged -v /dev/bus/usb:/dev/bus/usb -p 80:8080 hub.foundries.io/dump1090
+```
