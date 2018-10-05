@@ -1,6 +1,6 @@
-FROM linarotechnologies/openjdk:latest
+FROM alpine:latest
 
-ENV CALIFORNIUM_HOME=/opt/hawkbit
+ENV CALIFORNIUM_HOME=/opt/cf
 
 # CoAP port
 EXPOSE 5683
@@ -8,7 +8,7 @@ EXPOSE 5683
 RUN set -x \
     && mkdir -p $CALIFORNIUM_HOME \
     && cd $CALIFORNIUM_HOME \
-    && apk add --no-cache libressl curl \
+    && apk add --no-cache libressl curl openjdk8-jre-base \
     && curl -o cf-plugtest-server.jar https://hudson.eclipse.org/californium/job/1.1.x-nightly/lastSuccessfulBuild/artifact/cf-plugtest-server.jar
 
 VOLUME "$CALIFORNIUM_HOME/data"
