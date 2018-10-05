@@ -1,7 +1,7 @@
-# rtlsdr Docker image 
+A cross-platform container image of [rtlsdr](https://osmocom.org/projects/rtl-sdr/wiki)
 
-[![Microbadger](https://images.microbadger.com/badges/image/linarotechnologies/rtlsdr-docker.svg)](http://microbadger.com/images/linarotechnologies/rtlsdr-docker "Image size")
-[![Docker Stars](https://img.shields.io/docker/stars/linarotechnologies/rtlsdr-docker.svg?maxAge=86400)](https://hub.docker.com/r/linarotechnologies/rtlsdr-docker/)
-[![Docker Pulls](https://img.shields.io/docker/pulls/linarotechnologies/rtlsdr-docker.svg?maxAge=86400)](https://hub.docker.com/r/linarotechnologies/rtlsdr-docker/)
+## How to use this image
 
-
+```
+docker run -it --privileged -v /dev/bus/usb:/dev/bus/usb hub.foundries.io/rtl-sdr rtl_sdr --help
+```
