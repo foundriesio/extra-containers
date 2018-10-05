@@ -1,4 +1,4 @@
-FROM linarotechnologies/nginx:latest
+FROM nginx:alpine
 
 RUN apk --no-cache add ca-certificates wget tar nginx \
  && wget -O freeboard.tar.gz https://api.github.com/repos/Freeboard/freeboard/tarball/master \

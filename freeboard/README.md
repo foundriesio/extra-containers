@@ -1,16 +1,12 @@
-# Freeboard in a container
-* Added freeboard-mqtt plugin
-* Alpine Linux with nginx, so it's teeeeny!
+A cross-platform [Freeboard](https://freeboard.io/) container
 
-[![Microbadger](https://images.microbadger.com/badges/image/linarotechnologies/freeboard-demo.svg)](http://microbadger.com/images/linarotechnologies/freeboard-demo "Image size")
-[![Docker Stars](https://img.shields.io/docker/stars/linarotechnologies/freeboard-demo.svg?maxAge=86400)](https://hub.docker.com/r/linarotechnologies/freeboard-demo/)
-[![Docker Pulls](https://img.shields.io/docker/pulls/linarotechnologies/freeboard-demo.svg?maxAge=86400)](https://hub.docker.com/r/linarotechnologies/freeboard-demo/)
-
-
-### How to use this image with default widgets
+### How to use this image
 
 ```
-docker run --name myfreeboard -p 8081:80 -v $PWD/dashboard-private.json:/usr/share/nginx/html/dashboard.json -d freeboard
+docker run -p 8081:80 hub.foundries.io/freeboard
+
+# Or with your own custom layout:
+docker run -p 8081:80 -v $PWD/dashboard-private.json:/usr/share/nginx/html/dashboard.json hub.foundries.io/freeboard
 ```
 
 This will expose an installation of Freeboard and load the dashboard.json http://localhost:8081/?load=dashboard.json
