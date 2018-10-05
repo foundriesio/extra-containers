@@ -1,5 +1,3 @@
-# Simple dockerfile for executing coap commands from
-FROM opensourcefoundries/minideb:stretch
+FROM alpine:latest
 
-RUN install_packages libcoap-1-0-bin
-
+RUN apk add --no-cache libcoap

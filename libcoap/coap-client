@@ -6,7 +6,7 @@
 set -e
 
 VERSION="latest"
-IMAGE="opensourcetechnologies/libcoap:$VERSION"
+IMAGE="hub.foundries.io/libcoap:$VERSION"
 CMD="/usr/bin/coap-client"
 
 # Setup options for connecting to docker host
