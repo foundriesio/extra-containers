@@ -13,7 +13,7 @@
 set -e
 
 VERSION="latest"
-IMAGE="linarotechnologies/fswebcam-docker:$VERSION"
+IMAGE="hub.foundries.io/fswebcam:$VERSION"
 CMD="fswebcam"
 
 # Setup options for connecting to docker host
