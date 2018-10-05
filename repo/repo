@@ -6,7 +6,7 @@
 set -e
 
 VERSION="latest"
-IMAGE="linarotechnologies/repo:$VERSION"
+IMAGE="hub.foundries.io/repo:$VERSION"
 CMD="repo"
 
 # Setup options for connecting to docker host

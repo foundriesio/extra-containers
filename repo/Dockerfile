@@ -1,6 +1,8 @@
-FROM opensourcefoundries/minideb:stretch
+FROM alpine:latest
 
-RUN install_packages ca-certificates curl git-core python
+RUN apk add --no-cache git curl python \
+	&& curl https://storage.googleapis.com/git-repo-downloads/repo > /bin/repo \
+	&& chmod a+x /bin/repo
 
-RUN curl https://storage.googleapis.com/git-repo-downloads/repo > /bin/repo \
-    && chmod a+x /bin/repo
+WORKDIR /src
+ENTRYPOINT ["/bin/repo"]
