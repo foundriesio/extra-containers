@@ -1,7 +1,5 @@
-# gpsd
+multiarch Alpine based GPS daemon
 
-multiarch alpine based GPS daemon 
+## How to use this image
 
-## example
-
-docker run -it -p 2947:2947 --device=/dev/ttyAMA0 forcedinductionz/docker-gpsd -D2 /dev/ttyAMA0
+docker run -it -p 2947:2947 --device=/dev/ttyAMA0 hub.foundries.io/gpsd -D2 /dev/ttyAMA0
