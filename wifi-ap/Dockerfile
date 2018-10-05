@@ -1,4 +1,4 @@
-FROM opensourcefoundries/alpine:edge
+FROM alpine:latest
 
 RUN apk add --no-cache bash hostapd iptables dhcp docker iproute2 iw
 RUN echo "" > /var/lib/dhcp/dhcpd.leases

@@ -1,4 +1,4 @@
-# Docker container stack: hostap + dhcp server 
+# Docker container stack: hostap + dhcp server
 
 This container starts wireless access point (hostap) and dhcp server in docker
 container. It supports both host networking and network interface reattaching
@@ -35,18 +35,18 @@ country ES: DFS-ETSI
         (57000 - 66000 @ 2160), (N/A, 40), (N/A)
 ```
 
-## Build / run
+## How to use this image
 
 * Using host networking:
 
 ```
-sudo docker run -d -t -e INTERFACE=wlan0 --net host --privileged offlinehacker/docker-ap
+sudo docker run -t -e INTERFACE=wlan0 --net host --privileged hub.foundries.io/docker-ap
 ```
 
 * Using network interface reattaching:
 
 ```
-sudo docker run -d -t -e INTERFACE=wlan0 -v /var/run/docker.sock:/var/run/docker.sock --privileged offlinehacker/docker-ap
+sudo docker run -t -e INTERFACE=wlan0 -v /var/run/docker.sock:/var/run/docker.sock --privileged hub.foundries.io/docker-ap
 ```
 
 This mode requires access to docker socket, so it can run a short lived
@@ -65,7 +65,7 @@ and have deterministic environment with wifi interface.
 * **AP_ADDR**: Access point address (default: 192.168.254.1)
 * **SSID**: Access point SSID (default: docker-ap)
 * **WPA_PASSPHRASE**: WPA password (default: passw0rd)
-* **HW_MODE**: WIFI mode to use (default: g) 
+* **HW_MODE**: WIFI mode to use (default: g)
 * **DRIVER**: WIFI driver to use (default: nl80211)
-* **HT_CAPAB**: WIFI HT capabilities for 802.11n (default: [HT40-][SHORT-GI-20][SHORT-GI-40]) 
+* **HT_CAPAB**: WIFI HT capabilities for 802.11n (default: [HT40-][SHORT-GI-20][SHORT-GI-40])
 * **MODE**: Mode to run in guest/host (default: host)
