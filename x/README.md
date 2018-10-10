@@ -1,7 +1,7 @@
-# x
+Run a minimal X windows application, the [Midori web browser](https://www.midori-browser.org/), inside Docker.
 
-## usage
+## How to use this image
 
 ```
-docker run -it --privileged registry.foundries.io/development/microplatforms/linux/extra-containers/x:latest --kiosk "foundries.io"
+docker run --privileged -v /etc/machine-id:/etc/machine-id hub.foundries.io/x
 ```
