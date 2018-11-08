@@ -1,0 +1,38 @@
+leshan_api:
+  url: https://mgmt.foundries.io/leshan
+
+mqtt:
+  host: 127.0.0.1
+  port: 1883
+
+endpoints:
+  default:
+    alias: light-default
+    observations:
+      '/3303/0/5700':
+        type: float
+        alias: die-temp
+      '/3311/0/5850':
+        type: str
+        alias: power-state
+      '/3/0/0':
+        type: str
+        alias: manufacturer
+      '/3/0/19':
+        type: str
+        alias: sw-version
+      '/3/0/2':
+        type: str
+        alias: serial-num
+      '/3/0/1':
+        type: str
+        alias: model-num
+      '/3311/0/5706':
+        type: str
+        alias: colour
+      '/3311/0/5851':
+        type: float
+        alias: dimmer
+      '/3/0/18':
+        type: str
+        alias: hw-version
