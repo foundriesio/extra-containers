@@ -1,0 +1,6 @@
+{
+  "name": "IOTA MQTT Bridge,
+  "description": "An IOTA MQTT Bridge",
+  "keywords": ["iota", "nqtt"],
+  "image": "node/alpine"
+}

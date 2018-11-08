@@ -1,0 +1,23 @@
+{
+  "name": "mqtt-iota",
+  "version": "0.1.0",
+  "description": "IOTA MQTT Bridge",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "iota",
+    "mqtt"
+  ],
+  "author": "Nicolas Schteinschraber",
+  "license": "MIT",
+  "dependencies": {
+    "async": "^2.3.0",
+    "iota.lib.js": "^0.4.6",
+    "mqtt": "^2.6.2",
+    "node-cleanup": "^2.1.2",
+    "url": "^0.11.0"
+  }
+}
