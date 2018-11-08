@@ -1,8 +1,8 @@
-FROM golang:alpine
+FROM alpine:latest
 
-RUN apk add --no-cache git gcc musl-dev \
-	&& go get github.com/apache/mynewt-mcumgr-cli/mcumgr
+RUN apk add --no-cache git gcc musl-dev go \
+	&& go get -v github.com/apache/mynewt-mcumgr-cli/mcumgr
 
 FROM alpine:latest
-COPY --from=0 /go/bin/mcumgr /usr/bin/
+COPY --from=0 /root/go/bin/mcumgr /usr/bin/
 ENTRYPOINT ["mcumgr"]
