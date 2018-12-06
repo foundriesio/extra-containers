@@ -8,6 +8,7 @@ RUN apk --no-cache add ca-certificates wget tar nginx \
  && tar -xzvf freeboard.tar.gz -C /usr/share/nginx/html --strip-components=1 \
  && rm freeboard.tar.gz
 
+COPY test.sh /test.sh
 COPY default.conf /etc/nginx/conf.d/default.conf
 COPY paho.mqtt.plugin.js /usr/share/nginx/html/plugins/thirdparty/
 COPY mqttws31.js /usr/share/nginx/html/plugins/mqtt/

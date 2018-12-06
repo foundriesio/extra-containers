@@ -13,3 +13,4 @@ WORKDIR /root/
 
 RUN apk add --no-cache libgd
 COPY --from=0 /root/fswebcam/fswebcam /usr/bin/
+COPY test.sh /

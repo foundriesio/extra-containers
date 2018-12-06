@@ -14,6 +14,8 @@ ARG KAL_APP=/usr/src/kal-rtl
 
 WORKDIR $RTL_APP
 
+COPY test.sh /test.sh
+
 # libfftw3-dev
 RUN apk add --no-cache bash libstdc++ $DEV_PKGS \
 	&& apk --no-cache add --repository http://dl-cdn.alpinelinux.org/alpine/edge/testing librtlsdr librtlsdr-dev \
