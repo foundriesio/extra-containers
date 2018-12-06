@@ -1,11 +1,11 @@
-FROM opensourcefoundries/minideb:stretch
+FROM alpine:latest
 
-RUN install_packages file build-essential python-pip python-dev libffi-dev libssl-dev
+ARG DEV_PKGS="gcc libffi-dev musl-dev openssl-dev python-dev"
 
-RUN pip install setuptools wheel
-RUN pip install -U azure-iot-edge-runtime-ctl
-
-RUN apt-get remove -y --purge --auto-remove build-essential
+RUN apk --no-cache add bash file openssl python py-pip $DEV_PKGS \
+	&& pip install -U pip setuptools wheel \
+	&& pip install idna==2.7 azure-iot-edge-runtime-ctl \
+	&& apk del $DEV_PKGS
 
 COPY run.sh /run.sh
 
