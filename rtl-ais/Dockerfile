@@ -1,29 +1,44 @@
-FROM opensourcefoundries/minideb:stretch
+FROM alpine:latest
 
-ENV VER=${VER:-master} \
-    REPO=https://github.com/dgiardini/rtl-ais.git \
-    APP=/usr/src/app \
-    GIT_SSL_NO_VERIFY=true
+ARG DEV_PKGS="autoconf automake gcc git g++ libtool make musl-dev wget"
 
-WORKDIR $APP
+ARG RTL_VER=${VER:-master}
+ARG RTL_REPO=https://github.com/dgiardini/rtl-ais.git
+ARG RTL_APP=/usr/src/rtl
 
-RUN install_packages git wget rtl-sdr librtlsdr-dev gnuais gnuaisgui make build-essential pkg-config libusb-1.0-0-dev gnuradio gr-osmosdr \
-&&  git clone -b $VER $REPO $APP \
-&&  make
+ARG FFTW_URL=http://fftw.org/fftw-3.3.8.tar.gz
 
-ENV VER=arm_memory \
-    REPO=https://github.com/asdil12/kalibrate-rtl.git \
-    APP=/usr/src/kal-rtl \
-    GIT_SSL_NO_VERIFY=true
+ARG KAL_VER=arm_memory
+ARG KAL_REPO=https://github.com/asdil12/kalibrate-rtl.git
+ARG KAL_APP=/usr/src/kal-rtl
 
-RUN install_packages libtool autoconf automake libfftw3-dev \
-&&  git clone -b $VER $REPO $APP \
-&&  cd $APP \
-&&  ./bootstrap \
-&&  ./configure \
-&&  make \
-&&  make install
+WORKDIR $RTL_APP
+
+# libfftw3-dev
+RUN apk add --no-cache bash libstdc++ $DEV_PKGS \
+	&& apk --no-cache add --repository http://dl-cdn.alpinelinux.org/alpine/edge/testing librtlsdr librtlsdr-dev \
+	&& echo Building rtl-ais \
+	&& git clone -b $RTL_VER $RTL_REPO $RTL_APP \
+	&& make \
+	&& mv rtl_ais /usr/local/bin/ \
+	&& echo Building fftw \
+	&& wget -O /fftw.tgz $FFTW_URL \
+	&& cd /usr/src \
+	&& tar -xzf /fftw.tgz \
+	&& rm /fftw.tgz \
+	&& cd fftw* \
+	&& ./configure \
+	&& make \
+	&& make install \
+	&& echo Building kal-rtl \
+	&& git clone -b $KAL_VER $KAL_REPO $KAL_APP \
+	&& cd $KAL_APP \
+	&& ./bootstrap \
+	&& ./configure \
+	&& make \
+	&& make install \
+	&& rm /usr/src/* -rf \
+	&& apk del $DEV_PKGS
 
 EXPOSE 10110/udp
-
-CMD $APP/rtl_ais -n
+CMD rtl_ais -n
