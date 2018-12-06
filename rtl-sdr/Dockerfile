@@ -18,3 +18,4 @@ RUN apk add --no-cache libusb \
 
 COPY --from=0 /usr/local/bin/rtl_* /usr/local/bin/
 COPY --from=0 /usr/local/lib/librtl* /usr/local/lib/
+COPY test.sh /test.sh
