@@ -1,0 +1,34 @@
+{# This simple template derives from ``base.html``. See ``base.html`` for
+   more information about template inheritance. #}
+{%- extends "base.html" %}
+
+{# Loads some of the macros included with Flask-Bootstrap. We are using the
+   utils module here to automatically render Flask's flashed messages in a
+   bootstrap friendly manner #}
+{% import "bootstrap/utils.html" as utils %}
+
+
+{# Inside the ``content`` is where you should place most of your own stuff.
+   This will keep scripts at the page end and a navbar you add on later
+   intact. #}
+{% block content %}
+  <div class="container">
+  {%- with messages = get_flashed_messages(with_categories=True) %}
+  {%- if messages %}
+    <div class="row">
+      <div class="col-md-12">
+        {{utils.flashed_messages(messages)}}
+      </div>
+    </div>
+  {%- endif %}
+  {%- endwith %}
+    <div class="jumbotron">
+      <img src="/static/logo.png" width="30%" height="30%" class="center-block img-fluid" alt="Foundries.io">
+      <h2 class="text-center">Candy Dispenser</h2>
+      <p class="text-center">This example application demonstrates control of a Zephyr LWM2M candy dispenser using BLE and 6lowpan.</p>
+      <form action="/dispense/" method="post">
+	      <button class="center-block btn btn-lg btn-danger" name="dispenseBtn" type="submit">Dispense Candy</button>
+      </form>
+    </div>
+   </div>
+{%- endblock %}
