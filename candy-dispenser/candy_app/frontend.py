@@ -32,6 +32,28 @@ def put(url, data):
     else:
         return False
 
+def get(url, raw=False):
+    response = requests.get(url, headers=headers)
+    if response.status_code in (200, 201):
+        try:
+            payload = json.loads(response.content)
+        except:
+            return None
+        if raw:
+            return payload
+        else:
+            if 'content' in payload:
+                if 'value' in payload['content']:
+                    return payload['content']['value']
+    else:
+        return None
+
+def toggle_state(host, client):
+    url = '%s/api/clients/%s/3311/0/5850' % (host, client)
+    state = not get(url)
+    nextstate = {'id': 5850, 'value': state}
+    return put(url, nextstate)
+
 def toggle(host, client, state):
     url = '%s/api/clients/%s/3311/0/5850' % (host, client)
     nextstate = {'id': 5850, 'value': state}
@@ -47,8 +69,17 @@ def index():
 def dispense():
     message = "Dispensing Candy..."
     host = os.environ['HOST']
-    client = os.environ['CLIENT']
+    client = os.environ['CANDY_CLIENT']
     toggle(host, client, True)
     time.sleep(0.5)
-    toggle(host,client, False)
+    toggle(host, client, False)
     return render_template('index.html', message=message);
+
+@frontend.route("/toggle/", methods=['POST'])
+def light_toggle():
+    message = "Toggling Light..."
+    host = os.environ['HOST']
+    client = os.environ['LIGHT_CLIENT']
+    toggle_state(host, client)
+    return render_template('index.html', message=message);
+
