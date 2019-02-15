@@ -54,10 +54,9 @@ def toggle_state(host, client):
     nextstate = {'id': 5850, 'value': state}
     return put(url, nextstate)
 
-def toggle(host, client, state):
-    url = '%s/api/clients/%s/3311/0/5850' % (host, client)
-    nextstate = {'id': 5850, 'value': state}
-    return put(url, nextstate)
+def trigger(host, client):
+    url = '%s/api/clients/%s/3340/0/5523' % (host, client)
+    return post(url)
 
 # Our index-page just shows a quick explanation. Check out the template
 # "templates/index.html" documentation for more details.
@@ -70,9 +69,7 @@ def dispense():
     message = "Dispensing Candy..."
     host = os.environ['HOST']
     client = os.environ['CANDY_CLIENT']
-    toggle(host, client, True)
-    time.sleep(0.5)
-    toggle(host, client, False)
+    trigger(host, client)
     return render_template('index.html', message=message);
 
 @frontend.route("/toggle/", methods=['POST'])
