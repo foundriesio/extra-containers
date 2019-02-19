@@ -70,7 +70,7 @@ def dispense():
     host = os.environ['HOST']
     client = os.environ['CANDY_CLIENT']
     trigger(host, client)
-    return render_template('index.html', message=message);
+    return render_template('index.html', message=message)
 
 @frontend.route("/toggle/", methods=['POST'])
 def light_toggle():
@@ -78,5 +78,4 @@ def light_toggle():
     host = os.environ['HOST']
     client = os.environ['LIGHT_CLIENT']
     toggle_state(host, client)
-    return render_template('index.html', message=message);
-
+    return render_template('index.html', message=message)
