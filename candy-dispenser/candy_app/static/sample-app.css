@@ -1,6 +1,26 @@
+* {
+    text-rendering: optimizeLegibility;
+}
+
+.btn {
+    margin-top: 24px;
+    border-radius: 2px;
+}
+
+.full-height {
+    height: 100vh;
+}
+
 .jumbotron {
-  margin-top: 0;
-  margin-bottom: 0;
-  padding-top: 30px;
-  padding-bottom: 40px;
+    margin-top: 0;
+    margin-bottom: 0;
+    padding: 24px 0;
+}
+
+.jumbotron p {
+    margin: 16px 0;
+}
+
+.extra-margin {
+    margin-top: 10%;
 }

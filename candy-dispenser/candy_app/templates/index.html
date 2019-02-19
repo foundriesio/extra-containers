@@ -12,28 +12,34 @@
    This will keep scripts at the page end and a navbar you add on later
    intact. #}
 {% block content %}
-  <div class="container">
-  {%- with messages = get_flashed_messages(with_categories=True) %}
-  {%- if messages %}
-    <div class="row">
-      <div class="col-md-12">
-        {{utils.flashed_messages(messages)}}
-      </div>
+    <div class="jumbotron full-height">
+        <div class="container-fluid">
+            {%- with messages = get_flashed_messages(with_categories=True) %}
+            {%- if messages %}
+                {{utils.flashed_messages(messages)}}
+            {%- endif %}
+            {%- endwith %}
+            <img src="/static/logo.png" width="80%" height="20%" class="center-block img-fluid" alt="Foundries.io">
+            <div class="row full-height">
+                <div class="col-xs-6 text-center extra-margin">
+                    <h2>BLE Candy Dispenser</h2>
+                    <p class="lead">
+                        Control a Zephyr LWM2M candy dispenser using BLE and 6lowpan.
+                    </p>
+                    <form action="/dispense/" method="post">
+                        <button class="center-block btn btn-lg btn-primary" name="dispenseBtn" type="submit">DISPENSE CANDY</button>
+                    </form>
+                </div>
+                <div class="col-xs-6 text-center extra-margin">
+                    <h2>BLE Light Control</h2>
+                    <p class="lead">
+                        Control a Zephyr LWM2M light using BLE and 6lowpan.
+                    </p>
+                    <form action="/toggle/" method="post">
+                        <button class="center-block btn btn-lg btn-info" name="toggleBtn" type="submit">TOGGLE LIGHT</button>
+                    </form>
+                </div>
+            </div>
+        </div>
     </div>
-  {%- endif %}
-  {%- endwith %}
-    <div class="jumbotron">
-      <img src="/static/logo.png" width="80%" height="20%" class="center-block img-fluid" alt="Foundries.io">
-      <h2 class="text-center">BLE Candy Dispenser</h2>
-      <p class="text-center">This example application demonstrates control of a Zephyr LWM2M candy dispenser using BLE and 6lowpan.</p>
-      <form action="/dispense/" method="post">
-	      <button class="center-block btn btn-lg btn-danger" name="dispenseBtn" type="submit">Dispense Candy</button>
-      </form>
-      <h2 class="text-center">BLE Light Control</h2>
-      <p class="text-center">This example application demonstrates control of a Zephyr LWM2M light using BLE and 6lowpan.</p>
-      <form action="/toggle/" method="post">
-              <button class="center-block btn btn-lg btn-warning" name="toggleBtn" type="submit">Toggle Light</button>
-      </form>
-    </div>
-   </div>
 {%- endblock %}
