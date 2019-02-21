@@ -12,32 +12,53 @@
    This will keep scripts at the page end and a navbar you add on later
    intact. #}
 {% block content %}
-    <div class="jumbotron full-height">
+    <div class="demo">
         <div class="container-fluid">
-            {%- with messages = get_flashed_messages(with_categories=True) %}
-            {%- if messages %}
-                {{utils.flashed_messages(messages)}}
-            {%- endif %}
-            {%- endwith %}
-            <img src="/static/logo.png" width="80%" height="20%" class="center-block img-fluid" alt="Foundries.io">
             <div class="row">
-                <div class="col-xs-6 text-center extra-margin">
-                    <h2>BLE Candy Dispenser</h2>
+                <div class="col-xs-4">
+                    <img src="/static/candy.jpg" class="img-demo img-left" alt="Foundries.io">
+                </div>
+                <div class="col-xs-4">
+                    <img src="/static/logo.png" class="center-block img-company" alt="Foundries.io">
+                </div>
+                <div class="col-xs-4">
+                    <img src="/static/light.jpg" class="img-demo img-right" alt="Foundries.io">
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-6 text-center extra-margin candy-controls">
+                    <h2>Candy Dispenser</h2>
                     <p class="lead">
-                        Control a Zephyr LWM2M candy dispenser using BLE and 6lowpan.
+                        Control a Zephyr LWM2M candy dispenser using BLE/6LoWPAN or 802.15.4/OpenThread mesh.
                     </p>
                     <form action="/dispense/" method="post">
                         <button class="center-block btn btn-lg btn-primary" name="dispenseBtn" type="submit">DISPENSE CANDY</button>
                     </form>
+                    <div class="imgs text-left">
+                        <p class="lead mp-powered">Powered by</p>
+                        <img src="/static/lmp-logo.png" class="img-logo" alt="Linux microPlatform logo">
+                        <img src="/static/zmp-logo.png" class="img-logo" alt="Zephyr microPlatform logo">
+                    </div>
                 </div>
-                <div class="col-xs-6 text-center extra-margin">
-                    <h2>BLE Light Control</h2>
+                <div class="col-xs-6 text-center extra-margin light-controls">
+                    <h2>Light Control</h2>
                     <p class="lead">
-                        Control a Zephyr LWM2M light using BLE and 6lowpan.
+                        Control a Zephyr LWM2M light using BLE/6LoWPAN, 802.15.4 OpenThread or Amazon Alexa.
                     </p>
                     <form action="/toggle/" method="post">
                         <button class="center-block btn btn-lg btn-info" name="toggleBtn" type="submit">TOGGLE LIGHT</button>
                     </form>
+                    <div class="btns">
+                        <div class="btns-wrapper">
+                            <form action="/color/" method="post">
+                                <button type="submit" name="color" value="#FF0000" class="btn btn-round btn-red">&nbsp;</button>
+                                <button type="submit" name="color" value="#00FF00" class="btn btn-round btn-green">&nbsp;</button>
+                                <button type="submit" name="color" value="#0000FF" class="btn btn-round btn-blue">&nbsp;</button>
+                                <button type="submit" name="color" value="#FF6000" class="btn btn-round btn-orange">&nbsp;</button>
+                                <button type="submit" name="color" value="#FF00FF" class="btn btn-round btn-purple">&nbsp;</button>
+                            </form>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>

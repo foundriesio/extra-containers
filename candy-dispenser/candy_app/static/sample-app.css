@@ -1,26 +1,130 @@
-* {
+html,
+body {
+    font-family: 'Lato', sans-serif;
     text-rendering: optimizeLegibility;
 }
 
-.btn {
-    margin-top: 24px;
-    border-radius: 2px;
-}
-
-.full-height {
+div.demo {
+    padding-top: 8px;
     height: 100vh;
 }
 
-.jumbotron {
-    margin-top: 0;
-    margin-bottom: 0;
-    padding: 24px 0;
+.img-company {
+    width: 60%;
 }
 
-.jumbotron p {
-    margin: 16px 0;
+.img-demo {
+    width: 50%;
+}
+
+.img-left {
+    margin-left: 50%;
+}
+
+.img-right {
+    margin-right: 50%;
+}
+
+.img-logo {
+    width: 48px;
+}
+
+.btn {
+    border-radius: 2px;
+    text-rendering: geometricPrecision;
+}
+
+.btn-round {
+    height: 48px;
+    width: 48px;
+    border-radius: 24px;
+}
+
+.imgs,
+.btns {
+    height: 76px;
+    margin-top: 24px;
+}
+
+.btns-wrapper {
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.btns .btn:not(:last-child) {
+    margin-right: 16px;
+}
+
+.btn-red {
+    background-color: #FF0000;
+}
+
+.btn-red:hover,
+.btn-red:active,
+.btn-red:focus {
+    background-color: #B30000;
+}
+
+.btn-green {
+    background-color: #00FF00;
+}
+
+.btn-green:hover,
+.btn-green:active,
+.btn-green:focus {
+    background-color: #008000;
+}
+
+.btn-blue {
+    background-color: #0000FF;
+}
+
+.btn-blue:hover,
+.btn-blue:active,
+.btn-blue:focus {
+    background-color: #000080;
+}
+
+.btn-orange {
+    background-color: #FF9D00;
+}
+
+.btn-orange:hover,
+.btn-orange:active,
+.btn-orange:focus {
+    background-color: #E68200;
+}
+
+.btn-purple {
+    background-color: #FF00FF;
+}
+
+.btn-purple:hover,
+.btn-purple:active,
+.btn-purple:focus {
+    background-color: #B300B2;
+}
+
+.imgs img {
+    width: 48px;
 }
 
 .extra-margin {
-    margin-top: 5%;
+    margin-top: 16px;
+}
+
+p.mp-powered {
+    font-size: 10px;
+    margin: 0;
+    padding: 0 24px 0;
+}
+
+.light-controls {
+    
+}
+
+.candy-controls {
+
 }

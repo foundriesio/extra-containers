@@ -5,7 +5,7 @@
 # You can find out more about blueprints at
 # http://flask.pocoo.org/docs/blueprints/
 
-from flask import Blueprint, render_template, flash, redirect, url_for
+from flask import Blueprint, render_template, flash, redirect, url_for, request
 from flask_bootstrap import __version__ as FLASK_BOOTSTRAP_VERSION
 from markupsafe import escape
 
@@ -48,15 +48,28 @@ def get(url, raw=False):
     else:
         return None
 
-def toggle_state(host, client):
+def toggle_state():
+    host = os.environ['HOST']
+    client = os.environ['LIGHT_CLIENT']
     url = '%s/api/clients/%s/3311/0/5850' % (host, client)
     state = not get(url)
     nextstate = {'id': 5850, 'value': state}
     return put(url, nextstate)
 
-def trigger(host, client):
+def trigger():
+    host = os.environ['HOST']
+    client = os.environ['CANDY_CLIENT']
     url = '%s/api/clients/%s/3340/0/5523' % (host, client)
     return post(url)
+
+def change_color(color):
+    host = os.environ["HOST"]
+    client = os.environ["LIGHT_CLIENT"]
+    url = "%s/api/clients/%s/3311/0/5706" % (host, client)
+    if (not color.startswith("#")):
+        color = "#" + color
+    print(color)
+    return put(url, {"id": "5706", "value": color})
 
 # Our index-page just shows a quick explanation. Check out the template
 # "templates/index.html" documentation for more details.
@@ -69,7 +82,7 @@ def dispense():
     message = "Dispensing Candy..."
     host = os.environ['HOST']
     client = os.environ['CANDY_CLIENT']
-    trigger(host, client)
+    trigger()
     return render_template('index.html', message=message)
 
 @frontend.route("/toggle/", methods=['POST'])
@@ -77,5 +90,11 @@ def light_toggle():
     message = "Toggling Light..."
     host = os.environ['HOST']
     client = os.environ['LIGHT_CLIENT']
-    toggle_state(host, client)
+    toggle_state()
     return render_template('index.html', message=message)
+
+
+@frontend.route("/color/", methods=["POST"])
+def color():
+    change_color(request.form.get("color"))
+    return render_template("index.html")
