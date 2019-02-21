@@ -88,13 +88,13 @@ div.demo {
 }
 
 .btn-orange {
-    background-color: #FF6000;
+    background-color: #FF9D00;
 }
 
 .btn-orange:hover,
 .btn-orange:active,
 .btn-orange:focus {
-    background-color: #E65600;
+    background-color: #E68200;
 }
 
 .btn-purple {
@@ -119,4 +119,12 @@ p.mp-powered {
     font-size: 10px;
     margin: 0;
     padding: 0 24px 0;
+}
+
+.light-controls {
+    
+}
+
+.candy-controls {
+
 }
