@@ -5,7 +5,7 @@
 # You can find out more about blueprints at
 # http://flask.pocoo.org/docs/blueprints/
 
-from flask import Blueprint, render_template, flash, redirect, url_for
+from flask import Blueprint, render_template, flash, redirect, url_for, request
 from flask_bootstrap import __version__ as FLASK_BOOTSTRAP_VERSION
 from markupsafe import escape
 
@@ -58,6 +58,18 @@ def trigger(host, client):
     url = '%s/api/clients/%s/3340/0/5523' % (host, client)
     return post(url)
 
+
+def change_color(color):
+    host = os.environ["HOST"]
+    client = os.environ["LIGHT_CLIENT"]
+
+    url = "%s/api/clients/%s/3311/0/5706" % (host, client)
+
+    if (not color.startswith("#")):
+        color = "#" + color
+
+    return put(url, {"id": "5523", color: color})
+
 # Our index-page just shows a quick explanation. Check out the template
 # "templates/index.html" documentation for more details.
 @frontend.route('/')
@@ -79,3 +91,9 @@ def light_toggle():
     client = os.environ['LIGHT_CLIENT']
     toggle_state(host, client)
     return render_template('index.html', message=message)
+
+
+@frontend.route("/color/", methods=["POST"])
+def color():
+    change_color(request.form.get("color"))
+    return render_template("index.html")
