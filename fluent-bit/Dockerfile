@@ -38,7 +38,7 @@ RUN apt-get update && \
           -DFLB_IN_SYSTEMD=On \
           -DFLB_OUT_KAFKA=On .. \
     && make -j $(getconf _NPROCESSORS_ONLN) install \
-    && rm -rf /tmp/fluent-bit-$FLB_VERSION
+    && rm -rf /tmp/fluent-bit-$FLB_VERSION /var/lib/apt/lists/*
 
 EXPOSE 2020
 CMD ["/usr/local/bin/fluent-bit", "-c", "/etc/fluent-bit.conf"]
