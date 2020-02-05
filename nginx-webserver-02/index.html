@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+
+	<title>Web Analytics - Real Time</title>
+
+	<!-- stylesheets -->
+	<link href="assets/fonts/font-roboto.css" rel="stylesheet">
+	<link href="assets/bootstrap/bootstrap4-alpha3.min.css" rel="stylesheet">
+	<link href="assets/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+	<link href="assets/web-analytics/style.css" rel="stylesheet">
+
+	<!-- scripts -->
+	<script src="assets/jquery/jquery-3.1.0.min.js"></script>
+	<script src="assets/tether/tether.min.js"></script>
+	<script src="assets/bootstrap/bootstrap4-alpha3.min.js"></script>
+	<script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
+	<script src="assets/web-analytics/real-time.js"></script>
+
+</head>
+
+<body>
+	<!-- page-content-wrapper -->
+	<div class="page-content-toggle" id="page-content-wrapper">
+		<div class="container-fluid">
+
+			<!-- 1st row -->
+			<div class="row m-b-2">
+				<div class="col-lg-4">
+					<div class="card card-block">
+						<h4 class="card-title">Active Users</h4>
+						<div id="users-device-doughnut-chart"></div>
+					</div>
+				</div>
+				<div class="col-lg-4">
+					<div class="card card-block">
+						<h4 class="card-title">Medium</h4>
+						<div id="users-medium-pie-chart"></div>
+					</div>
+				</div>
+				<div class="col-lg-4">
+					<div class="card card-block">
+						<h4 class="card-title">Categories</h4>
+						<div id="users-category-pie-chart"></div>
+					</div>
+				</div>
+			</div>
+			<!-- /1st row -->
+
+			<!-- 2nd row -->
+			<div class="row">
+				<div class="col-lg-6">
+					<div class="card card-block">
+						<h4 class="card-title m-b-2">Page Views Per Minute</h4>
+						<div id="page-views-per-minute-column-chart"></div>
+					</div>
+				</div>
+				<div class="col-lg-6">
+					<div class="card card-block">
+						<h4 class="card-title m-b-2">Page Views Per Second</h4>
+						<div id="page-views-per-second-column-chart"></div>
+					</div>
+				</div>
+			</div>
+			<!-- /2nd row -->
+
+
+		</div>
+		<!-- /.container-fluid -->
+
+	</div>
+	<!-- /page-content-wrapper -->
+
+</body>
+
+</html>
