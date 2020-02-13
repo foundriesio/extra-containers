@@ -2,6 +2,8 @@ version: 1.0.0
 name: nginx-webserver-02
 description: Foundries.io nginxwebserver-02 example
 
+---
+
 version: '1.0'
 
 services:
@@ -10,5 +12,7 @@ services:
     restart: always
     ports:
       - 80:${PORT}
+
+---
 
 PORT: 80
