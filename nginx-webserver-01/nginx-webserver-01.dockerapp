@@ -6,7 +6,7 @@ version: '1.0'
 
 services:
   nginx:
-    image: hub.foundries.io/<your factory>/ngins-webserver-01:latest
+    image: hub.foundries.io/<your factory>/nginx-webserver-01:latest
     restart: always
     ports:
       - 80:${PORT}
