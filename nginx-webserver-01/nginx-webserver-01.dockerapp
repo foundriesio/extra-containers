@@ -4,7 +4,7 @@ description: Foundries.io nginxwebserver-01 example
 
 ---
 
-version: '1.0'
+version: '3.2'
 
 services:
   nginx:
