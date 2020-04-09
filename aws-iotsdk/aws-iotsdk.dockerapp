@@ -1,0 +1,38 @@
+version: 0.1.0
+name: aws-iotsdk
+description: AWS IoT SDK software stack
+
+---
+
+version: '3.7'
+
+services:
+  awsiotsdk:
+    image: hub.foundries.io/munoz0raul/aws-iotsdk:latest
+    tmpfs:
+      - /run
+      - /var/lock
+      - /var/log
+    volumes:
+      - type: volume
+        source: provdata
+        target: /prov
+        volume:
+          nocopy: true
+    environment:
+      - AWS_ENDPOINT=${AWS_ENDPOINT}
+      - AWS_PROV_LOC=${AWS_PROV_LOC}
+    command: "--endpoint ${AWS_ENDPOINT} --provision-location ${AWS_PROV_LOC}"
+    tty: true
+    network_mode: "host"
+    privileged: true
+    restart: always
+
+volumes:
+  provdata:
+
+---
+
+AWS_ENDPOINT: ats.iot.us-east-1.amazonaws.com
+AWS_PROV_LOC: /prov
+
