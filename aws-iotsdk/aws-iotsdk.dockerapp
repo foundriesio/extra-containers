@@ -8,7 +8,7 @@ version: '3.7'
 
 services:
   awsiotsdk:
-    image: hub.foundries.io/munoz0raul/aws-iotsdk:latest
+    image: hub.foundries.io/<your factory>/aws-iotsdk:latest
     tmpfs:
       - /run
       - /var/lock
