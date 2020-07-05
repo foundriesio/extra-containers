@@ -2,7 +2,7 @@
 version: "3"
 services:
   ibm-iotsdk:
-    image: hub.foundries.io/munoz0raul/ibm-iotsdk:latest
+    image: hub.foundries.io/<YOUR_FACTORY_NAME>/ibm-iotsdk:latest
     tmpfs:
         - /run
         - /var/lock
