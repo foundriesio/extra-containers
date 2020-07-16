@@ -1,0 +1,13 @@
+# mosquitto/docker-compose.yml
+version: "3"
+services:
+  mosquitto:
+    image: hub.foundries.io/<your factory>/mosquitto:latest
+    tmpfs:
+      - /run
+      - /var/lock
+      - /var/log
+    ports:
+      - "1883:1883/tcp"
+    restart: always
+    read_only: true
