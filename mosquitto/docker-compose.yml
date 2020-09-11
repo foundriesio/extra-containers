@@ -2,12 +2,11 @@
 version: "3"
 services:
   mosquitto:
-    image: hub.foundries.io/<your factory>/mosquitto:latest
-    tmpfs:
-      - /run
-      - /var/lock
-      - /var/log
+    image: eclipse-mosquitto:1.6.12
+    volumes:
+      - /var/run/secrets/:/mosquitto/secrets
+      - ./run.sh:/run.sh:ro
+    command: [/run.sh]
     ports:
-      - "1883:1883/tcp"
+      - 1883:1883
     restart: always
-    read_only: true
