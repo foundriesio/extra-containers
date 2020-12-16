@@ -1,0 +1,17 @@
+# google-iotsdk/docker-compose.yml
+version: "3"
+services:
+  google-iotsdk:
+    image: hub.foundries.io/<YOUR_FACTORY_NAME>/google-iotsdk:latest
+    tmpfs:
+        - /run
+        - /var/lock
+        - /var/log
+    volumes:
+        - /var/run/secrets:/config
+    environment:
+        - GOOGLE_APPLICATION_CREDENTIALS=/config/google.json
+    tty: true
+    network_mode: "host"
+    privileged: true
+    restart: always
