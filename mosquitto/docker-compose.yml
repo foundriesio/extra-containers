@@ -1,0 +1,9 @@
+# mosquitto/docker-compose.yml
+version: '3.2'
+
+services:
+  mosquitto:
+    image: eclipse-mosquitto:1.6.12
+    restart: unless-stopped
+    ports:
+      - 1883:1883

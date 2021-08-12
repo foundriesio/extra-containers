@@ -1,0 +1,11 @@
+# shellhttpd-mqtt/docker-compose.yml
+version: '3.2'
+
+services:
+  httpd-mqtt:
+    image: hub.foundries.io/${FACTORY}/shellhttpd-mqtt:latest
+    restart: unless-stopped
+    ports:
+      - 8082:${PORT-8082}
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
