@@ -1,0 +1,15 @@
+# ibm-iotsdk/docker-compose.yml
+version: "3"
+services:
+  ibm-iotsdk:
+    image: hub.foundries.io/<YOUR_FACTORY_NAME>/ibm-iotsdk:latest
+    tmpfs:
+        - /run
+        - /var/lock
+        - /var/log
+    volumes:
+        - /var/run/secrets:/config
+    tty: true
+    network_mode: "host"
+    privileged: true
+    restart: always
