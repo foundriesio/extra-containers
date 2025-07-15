@@ -2,7 +2,11 @@
 FROM alpine
 
 RUN apk add --update py-pip
-RUN apk --no-cache add py3-flask
+RUN apk --no-cache add py3-flask python3-dev
+
+RUN python -m venv /opt/venv
+ENV PATH="/opt/venv/bin:$PATH"
+
 # install python3 dependencies in advance -- we can copy them later
 RUN pip install --no-cache --upgrade pip && \
     pip install --no-cache --upgrade Flask-MQTT
